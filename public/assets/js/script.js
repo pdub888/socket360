@@ -123,7 +123,7 @@ $(function() {
 			
 				var ran = Math.round(Math.random()*3);
 				
-				var srcArray = ['congo.MP4', 'moosehead_1.MP4', 'pemaquid.MP4', 'sebago1.mp4', 'moosehead2_1.mp4', 'rosier.mp4', 'sand.mp4', 'sebago2.mp4', 'cadillac.mp4', 'bakeman.mp4', 'kitten.mp4', 'house.mp4']
+				var srcArray = ['congo.MP4', 'moosehead_1.mp4', 'pemaquid.MP4', 'sebago1.mp4', 'moosehead2_1.mp4', 'rosier.mp4', 'sand.mp4', 'sebago2.mp4', 'cadillac.mp4', 'bakeman.mp4', 'kitten.mp4', 'house.mp4']
 				//var srcArray = ['congo.MP4', 'moosehead_1.MP4', 'moosehead2_1.MP4', 'pemaquid.MP4', 'kitten.mp4', 'house.mp4', 'rosier.mp4', 'sebago1.mp4', 'sand.mp4', 'cadillac.mp4', 'bakeman.mp4', 'kitten.mp4', 'sebago2.mp4'];
 				var vidsrc = 'assets/textures/' + srcArray[currVideo];
 			
