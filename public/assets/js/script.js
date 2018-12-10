@@ -9,6 +9,7 @@ $(function() {
 	var secretTextBox = form.find('input[type=text]');
 	var key = "", animationTimeout;
 	// When the page is loaded it asks you for a key and sends it to the server
+	
 
 	form.submit(function(e){
 
@@ -35,7 +36,12 @@ $(function() {
 		//look at phone sketch js
 
 		if(data.access === "granted") {
-		
+			
+			var w = window.innerWidth;
+			
+			if(w>1000){
+				document.getElementById('road').play();
+			}
 			var scope = this;
 			var camera, scene, renderer, controls, savedControls, disMobile;
 			
@@ -78,17 +84,50 @@ $(function() {
 				
 				
 				scene = new THREE.Scene();
+				
+				//var devTimeArray = [8000, 11200, 19000, 23000, 20000, 13000, 13000, 17000, 18000, 10000, 13000, 25000, 9000000];
+				var timeArray = [8000, 11200, 19000, 15000, 15000, 13000, 13000, 17000, 18000, 10000, 13000, 25000, 9000000];
+
+				var rotateArray = [110, 170, 240, 60, 10, 170, 60, 190, 190, 150, 120, 90, 0]
+				var currVideo = 0;
+				var switchTimer = setInterval(myTimer, timeArray[currVideo]);
+				
+				
+				// congo 110: 8000
+				// moosehead1 170: 16000
+				// pemaquid 240: 20000
+				// sebago1 60: 23000
+				// moosehead2 10: 20000
+				// rosier 170: 13000
+				// sand 60: 13000
+				// sebago2 190: 17000
+				// cadillac 190: 18000
+				// bakeman 150: 10000
+				// kitten 120 : 13000
+				// house 90: 25000
+
+				
+				
+				
+				
+				
+				function myTimer(){
+					currVideo++;
+					switchVideo();
+				}
 
 				var geometry = new THREE.SphereBufferGeometry( 500, 60, 40 );
 				// invert the geometry on the x-axis so that all of the faces point inward
 				geometry.scale( - 1, 1, 1 );
+				geometry.center();
 			
 				var ran = Math.round(Math.random()*3);
+				
+				var srcArray = ['congo.MP4', 'moosehead_1.MP4', 'pemaquid.mp4', 'sebago1.mp4', 'moosehead2_1.MP4', 'rosier.mp4', 'sand.mp4', 'sebago2.mp4', 'cadillac.mp4', 'bakeman.mp4', 'kitten.mp4', 'house.mp4']
+				//var srcArray = ['congo.MP4', 'moosehead_1.MP4', 'moosehead2_1.MP4', 'pemaquid.MP4', 'kitten.mp4', 'house.mp4', 'rosier.mp4', 'sebago1.mp4', 'sand.mp4', 'cadillac.mp4', 'bakeman.mp4', 'kitten.mp4', 'sebago2.mp4'];
+				var vidsrc = 'assets/textures/' + srcArray[currVideo];
 			
-				var srcArray = ['congo.MP4', 'moosehead_1.MP4', 'moosehead_1.MP4', 'pemaquid.MP4'];
-				var vidsrc = 'assets/textures/' + srcArray[ran];
-			
-				alert(vidsrc + "revision1");
+				//alert(vidsrc + "revision1");
 
 				var video = document.createElement( 'video' );
 				video.crossOrigin = 'anonymous';
@@ -99,18 +138,24 @@ $(function() {
 				video.src = vidsrc;
 				video.setAttribute( 'webkit-playsinline', 'webkit-playsinline' );
 				video.play();
+				
+				
 			
-				var texture = new THREE.TextureLoader().load( "assets/textures/monson.JPG" );
+				//var texture = new THREE.TextureLoader().load( "assets/textures/monson.JPG" );
 
-				//var texture = new THREE.VideoTexture( video );
-				//texture.minFilter = THREE.LinearFilter;
-				//texture.format = THREE.RGBFormat;
+				var texture = new THREE.VideoTexture( video );
+				texture.minFilter = THREE.LinearFilter;
+				texture.format = THREE.RGBFormat;
 
 				var material   = new THREE.MeshBasicMaterial( { map : texture } );
 
 				mesh = new THREE.Mesh( geometry, material );
 
 				scene.add( mesh );
+				
+				var radians = THREE.Math.degToRad( rotateArray[currVideo] );
+				//mesh.center();
+				mesh.rotation.y = radians;
 				
 				controls = new THREE.OrbitControls( camera );
 				camera.position.set( 0, 20, 100 );
@@ -120,6 +165,30 @@ $(function() {
 				renderer.setPixelRatio( window.devicePixelRatio );
 				renderer.setSize( window.innerWidth, window.innerHeight );
 				container.appendChild( renderer.domElement );
+				
+				function switchVideo(){
+					
+					$("#container").fadeOut(200);
+					$("#container").delay(1000).fadeIn(500);
+					
+					
+					$("#div2").fadeIn("slow");
+					
+					
+					clearInterval(switchTimer);
+					switchTimer = setInterval(myTimer, timeArray[currVideo]);
+					vidsrc = 'assets/textures/' + srcArray[currVideo];
+					video.src = vidsrc;
+					video.play();
+					var radians = THREE.Math.degToRad( rotateArray[currVideo] );
+					console.log(radians)
+					
+					//mesh.center();
+					mesh.rotation.y = radians;
+					
+					//geometry.rotation.set(new THREE.Vector3( 0, 0, radians));
+					
+				}
 				
 				
 				
