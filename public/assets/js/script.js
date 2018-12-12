@@ -85,7 +85,7 @@ $(function() {
 					$("#prompt").hide();
 				}
 				
-				
+				//var timeArray = [2000, 2000, 2000, 2000, 2000, 2000, 2000, 2000, 2000, 2000, 2000, 2000, 9000000];
 				var timeArray = [8000, 11200, 19000, 15000, 15000, 13000, 13000, 17000, 18000, 10000, 13000, 25000, 9000000];
 				var rotateArray = [110, 170, 240, 60, 10, 170, 60, 190, 190, 150, 120, 90, 0]
 				var currVideo = 0;
@@ -106,11 +106,7 @@ $(function() {
 					currVideo++;
 					switchVideo();
 				}
-				function myTimer(){
-					currVideo++;
-					switchVideo();
-				}
-
+				
 				var geometry = new THREE.SphereBufferGeometry( 500, 60, 40 );
 				// invert the geometry on the x-axis so that all of the faces point inward
 				geometry.scale( - 1, 1, 1 );
@@ -161,20 +157,32 @@ $(function() {
 				
 				function switchVideo(){
 					
-					$("#container").fadeOut(200);
-					$("#container").delay(1000).fadeIn(500);
 					
-					$("#div2").fadeIn("slow");
+					
+					
+					if(currVideo <= srcArray.length - 1){
+						$("#container").fadeOut(200);
+						$("#container").delay(1000).fadeIn(500);
+					
+						$("#div2").fadeIn("slow");
 
-					clearInterval(switchTimer);
-					switchTimer = setInterval(myTimer, timeArray[currVideo]);
-					vidsrc = 'assets/textures/' + srcArray[currVideo];
-					video.src = vidsrc;
-					video.play();
-					var radians = THREE.Math.degToRad( rotateArray[currVideo] );
-					//console.log(radians)
-					//mesh.center();
-					mesh.rotation.y = radians;
+						clearInterval(switchTimer);
+						switchTimer = setInterval(myTimer, timeArray[currVideo]);
+						vidsrc = 'assets/textures/' + srcArray[currVideo];
+						video.src = vidsrc;
+						video.play();
+						var radians = THREE.Math.degToRad( rotateArray[currVideo] );
+						//console.log(radians)
+						//mesh.center();
+						mesh.rotation.y = radians;
+					}
+					else{
+						clearInterval(switchTimer);
+						$("#prompt2").show();
+						$("#container").fadeOut(200);
+					}
+					
+					
 					//geometry.rotation.set(new THREE.Vector3( 0, 0, radians));
 					
 				}
