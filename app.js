@@ -29,7 +29,8 @@ app.use(express.static(__dirname + '/public'));
 // This is a secret key that prevents others from opening your presentation
 // and controlling it. Change it to something that only you know.
 
-var secret = 'W';
+//var secret = 'W';
+var secret = 'zeus';
 
 // Initialize a new socket.io application
 
@@ -41,10 +42,19 @@ var presentation = io.on('connection', function (socket) {
 	//alert("FLOWERS");
 
 	socket.on('load', function(data){
+		
+		var undersecret = data.key.toLowerCase()
 
 		socket.emit('access', {
-			access: (data.key === secret ? "granted" : "denied")
+			access: (undersecret === secret ? "granted" : "denied")
 		});
+
+	});
+	
+	socket.on('clickedstart', function(data){
+		console.log("clicked start");
+		//socket.emit('sendControls', {startit: ''});
+		presentation.emit('sendControls', {startit: ''});
 
 	});
 	
@@ -54,7 +64,7 @@ var presentation = io.on('connection', function (socket) {
 	});
 	
 	socket.on('devchanged', function(data){
-		console.log("DEVe CHANGED" + data.mynewvector.a);
+		//console.log("DEVe CHANGED" + data.mynewvector.a);
 		presentation.emit('device-changed', {
 			univector: data.mynewvector
 		});
@@ -80,7 +90,7 @@ var presentation = io.on('connection', function (socket) {
 	socket.on('slide-changed', function(data){
 
 		// Check the secret key again
-
+		
 		if(data.key === secret) {
 			// Tell all connected clients to navigate to the new slide
 			presentation.emit('navigate', {

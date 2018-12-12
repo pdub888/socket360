@@ -211,7 +211,7 @@ THREE.OrbitControls = function ( object, domElement ) {
 			var gamma = scope.deviceOrientation.gamma ? THREE.Math.degToRad(scope.deviceOrientation.gamma) : 0;
 			var orient = scope.screenOrientation ? THREE.Math.degToRad(scope.screenOrientation) : 0;*/
 			
-			console.log(coordinates.a + "AAAAA");
+			//console.log(coordinates.a + "AAAAA");
 			
 			//coordinates
 			/*var alpha = coordinates.a ? THREE.Math.degToRad(coordinates.a) : 0;

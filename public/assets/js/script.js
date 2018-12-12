@@ -4,6 +4,8 @@ $(function() {
 	// Connect to the socket
 	var socket = io();
 	// Variable initialization
+	//http://10.1.10.195:8080
+	//https://guarded-mesa-11997.herokuapp.com/
 
 	var form = $('form.login');
 	var secretTextBox = form.find('input[type=text]');
@@ -40,7 +42,7 @@ $(function() {
 			var w = window.innerWidth;
 			
 			if(w>1000){
-				document.getElementById('road').play();
+				
 			}
 			var scope = this;
 			var camera, scene, renderer, controls, savedControls, disMobile;
@@ -72,27 +74,21 @@ $(function() {
 			}
 
 			init();
-			animate();
+			//animate();
 			
-		
+			function fullInit(){
+				
+				var w = window.innerWidth;
 			
-
-			function init() {
-				texture_placeholder = document.getElementById( 'container' );
-				camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 1, 1100 );
-				camera.target = new THREE.Vector3( 0, 0, 0 );
+				if(w>1000){
+					document.getElementById('road').play();
+				}
 				
 				
-				scene = new THREE.Scene();
-				
-				//var devTimeArray = [8000, 11200, 19000, 23000, 20000, 13000, 13000, 17000, 18000, 10000, 13000, 25000, 9000000];
 				var timeArray = [8000, 11200, 19000, 15000, 15000, 13000, 13000, 17000, 18000, 10000, 13000, 25000, 9000000];
-
 				var rotateArray = [110, 170, 240, 60, 10, 170, 60, 190, 190, 150, 120, 90, 0]
 				var currVideo = 0;
 				var switchTimer = setInterval(myTimer, timeArray[currVideo]);
-				
-				
 				// congo 110: 8000
 				// moosehead1 170: 16000
 				// pemaquid 240: 20000
@@ -105,12 +101,10 @@ $(function() {
 				// bakeman 150: 10000
 				// kitten 120 : 13000
 				// house 90: 25000
-
-				
-				
-				
-				
-				
+				function myTimer(){
+					currVideo++;
+					switchVideo();
+				}
 				function myTimer(){
 					currVideo++;
 					switchVideo();
@@ -123,7 +117,7 @@ $(function() {
 			
 				var ran = Math.round(Math.random()*3);
 				
-				var srcArray = ['congo.MP4', 'moosehead_1.mp4', 'pemaquid.MP4', 'sebago1.mp4', 'moosehead2_1.mp4', 'rosier.mp4', 'sand.mp4', 'sebago2.mp4', 'cadillac.mp4', 'bakeman.mp4', 'kitten.mp4', 'house.mp4']
+				var srcArray = ['congo1.mp4', 'moosehead_1.mp4', 'pemaquid1.MP4', 'sebago1.mp4', 'moosehead2_1.mp4', 'rosier.mp4', 'sand.mp4', 'sebago2.mp4', 'cadillac.mp4', 'bakeman.mp4', 'kitten.mp4', 'house.mp4']
 				//var srcArray = ['congo.MP4', 'moosehead_1.MP4', 'moosehead2_1.MP4', 'pemaquid.MP4', 'kitten.mp4', 'house.mp4', 'rosier.mp4', 'sebago1.mp4', 'sand.mp4', 'cadillac.mp4', 'bakeman.mp4', 'kitten.mp4', 'sebago2.mp4'];
 				var vidsrc = 'assets/textures/' + srcArray[currVideo];
 			
@@ -136,11 +130,10 @@ $(function() {
 				video.loop = true;
 				video.muted = true;
 				video.src = vidsrc;
-				video.setAttribute( 'webkit-playsinline', 'webkit-playsinline' );
+				video.setAttribute( 'playsinline', '' );
+				//video.setAttribute( 'webkit-playsinline', 'webkit-playsinline' );
 				video.play();
-				
-				
-			
+
 				//var texture = new THREE.TextureLoader().load( "assets/textures/monson.JPG" );
 
 				var texture = new THREE.VideoTexture( video );
@@ -154,7 +147,6 @@ $(function() {
 				scene.add( mesh );
 				
 				var radians = THREE.Math.degToRad( rotateArray[currVideo] );
-				//mesh.center();
 				mesh.rotation.y = radians;
 				
 				controls = new THREE.OrbitControls( camera );
@@ -171,37 +163,43 @@ $(function() {
 					$("#container").fadeOut(200);
 					$("#container").delay(1000).fadeIn(500);
 					
-					
 					$("#div2").fadeIn("slow");
-					
-					
+
 					clearInterval(switchTimer);
 					switchTimer = setInterval(myTimer, timeArray[currVideo]);
 					vidsrc = 'assets/textures/' + srcArray[currVideo];
 					video.src = vidsrc;
 					video.play();
 					var radians = THREE.Math.degToRad( rotateArray[currVideo] );
-					console.log(radians)
-					
+					//console.log(radians)
 					//mesh.center();
 					mesh.rotation.y = radians;
-					
 					//geometry.rotation.set(new THREE.Vector3( 0, 0, radians));
 					
 				}
+			}
+			
+
+			function init() {
+				texture_placeholder = document.getElementById( 'container' );
+				camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 1, 1100 );
+				camera.target = new THREE.Vector3( 0, 0, 0 );
+				
+				$("#startbutton").show();
+				
+				var w = window.innerWidth;
+			
+				if(w>800){
+					$("#prompt").show();
+				}
 				
 				
+			    
 				
-				//window.addEventListener( 'resize', onWindowResize, false );
-				/*if(disMobile){
-					alert('dismobile');
-					socket.emit('setcontrol', {
-						camerapass: camera,
-						thecontrols: controls
-					});
-				}*/
-					
-					//update();
+				
+				scene = new THREE.Scene();
+				
+				
 			}
 			
 			function animate()  {
@@ -213,36 +211,8 @@ $(function() {
 
 
 			function update() {
-
-				/*lat = Math.max( - 85, Math.min( 85, lat ) );
-				phi = THREE.Math.degToRad( 90 - lat );
-				theta = THREE.Math.degToRad( lon );
-				camera.position.x = distance * Math.sin( phi ) * Math.cos( theta );
-				camera.position.y = distance * Math.cos( phi );
-				camera.position.z = distance * Math.sin( phi ) * Math.sin( theta );
-				camera.lookAt( camera.target );*/
-				
-				//DEV
-				
-				//controls.update();
-				//socket.emit('cameraControls', {controls: controls});
-				
-				/*socket.on('sendControls', function(data){
-				    controls = data.controls
-				    console.log("got EVENT");
-					controls.update();
-				});*/
-					
 					
 				var alphaBetaGamma = {a:1, b:2, g:3, o:0};
-
-				//console.log(camera);
-				//camera.lookAt( vector );
-				
-				/*socket.emit('devchanged', {
-					mynewvector: alphaBetaGamma
-				});*/
-				
 				controls.update();
 				renderer.render( scene, camera );
 
@@ -252,6 +222,13 @@ $(function() {
 			var numberTest = 1;
 			form.hide();
 			var ignore = false;
+			
+		    $("#startbutton").on('click', function () {
+				socket.emit('clickedstart', {
+					blah: ''
+				});
+				
+		    });
 			
 			window.addEventListener("deviceorientation", handleOrientation, true);
 			
@@ -267,35 +244,23 @@ $(function() {
 					var beta = event.beta ? THREE.Math.degToRad(event.beta) : 0;
 					var gamma = event.gamma ? THREE.Math.degToRad(event.gamma) : 0;
 					var orient = screenOrientation ? THREE.Math.degToRad(screenOrientation) : 0;
-					
-					//document.getElementById('numba').innerHTML = "alpha" + Math.round(alpha) + "beta " + Math.round(beta) + "gamma " + Math.round(gamma);
-					
-					//camera.position.x = distance * Math.sin( phi ) * Math.cos( theta );
-					//camera.position.y = distance * Math.cos( phi );
-					//camera.position.z = distance * Math.sin( phi ) * Math.sin( theta );
-					
 					var alphaBetaGamma = {a:alpha, b:beta, g:gamma, o:orient};
-
-					//console.log(camera);
-					//camera.lookAt( vector );
-					
+					// main control to send to socket
 					socket.emit('devchanged', {
 						mynewvector: alphaBetaGamma
 					});
 
-			  // Do stuff with the new orientation data
+			  	  // Do stuff with the new orientation data
 			}
 
 			
 			
 			socket.on('device-changed', function(data){
 
-				
 				//console.log(data.univector);
 				var alpha = data.univector.a;
 				var beta = data.univector.b;
 				var gamma = data.univector.g;
-				
 				
 				_motionAngleObject = data.univector;
 				
@@ -307,19 +272,27 @@ $(function() {
 				//cameraUpdate();
 
 			});
+			
+			socket.on('sendControls', function(data){
+
+				$("#startbutton").hide();
+				fullInit();
+				animate();
+				
+				/*document.dispatchEvent(new CustomEvent("getCoords", {
+					    detail: { coords: _motionAngleObject }
+				}));*/
+				
+				// PROD
+				//cameraUpdate();
+
+			});
 
 		}
 		else {
 
-			// Wrong secret key
-
 			clearTimeout(animationTimeout);
-
-			// Addding the "animation" class triggers the CSS keyframe
-			// animation that shakes the text input.
-
 			secretTextBox.addClass('denied animation');
-			
 			animationTimeout = setTimeout(function(){
 				secretTextBox.removeClass('animation');
 			}, 1000);
