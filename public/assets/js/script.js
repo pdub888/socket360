@@ -80,14 +80,28 @@ $(function() {
 				
 				var w = window.innerWidth;
 			
+				$('#arbysbknd').hide();
+			
 				if(w>1000){
 					document.getElementById('road').play();
 					$("#prompt").hide();
 				}
 				
+				$("#threesixtyicon").fadeIn(500);
+				$("#threesixtyicon").delay(4000).fadeOut(500);
+				
+				// for fastdev
 				//var timeArray = [2000, 2000, 2000, 2000, 2000, 2000, 2000, 2000, 2000, 2000, 2000, 2000, 9000000];
+				
+				//for publictesting
 				var timeArray = [8000, 11200, 19000, 15000, 15000, 13000, 13000, 17000, 18000, 10000, 13000, 25000, 9000000];
-				var rotateArray = [110, 170, 240, 60, 10, 170, 60, 190, 190, 150, 120, 90, 0]
+				var rotateArray = [0, 0, 120, 210, 190, 40, 220, 0, 0, 0, 10, 270, 0]
+				
+				// production
+				//var timeArray = [8000, 11200, 19000, 15000, 15000, 13000, 13000, 17000, 18000, 10000, 13000, 25000, 9000000];
+				//var rotateArray = [110, 170, 240, 60, 10, 170, 60, 190, 190, 150, 120, 90, 0];
+				
+				
 				var currVideo = 0;
 				var switchTimer = setInterval(myTimer, timeArray[currVideo]);
 				// congo 110: 8000
