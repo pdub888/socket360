@@ -91,15 +91,15 @@ $(function() {
 				$("#threesixtyicon").delay(4000).fadeOut(500);
 				
 				// for fastdev
-				//var timeArray = [2000, 2000, 2000, 2000, 2000, 2000, 2000, 2000, 2000, 2000, 2000, 2000, 9000000];
+				//var timeArray = [2000, 2000, 2000, 2000, 2000, 2000, 2000, 2000, 2000, 2000, 2000, 2000, 5000, 900000];
 				
 				//for publictesting
-				var timeArray = [8000, 11200, 19000, 15000, 15000, 13000, 13000, 17000, 18000, 10000, 13000, 25000, 9000000];
-				var rotateArray = [0, 0, 120, 210, 190, 40, 220, 0, 0, 0, 10, 270, 0]
+				//var timeArray = [8000, 11200, 19000, 15000, 15000, 13000, 13000, 17000, 18000, 10000, 13000, 25000, 9000000, 9000000];
+				//var rotateArray = [0, 0, 120, 210, 190, 40, 220, 0, 0, 0, 10, 270, 0]
 				
 				// production
-				//var timeArray = [8000, 11200, 19000, 15000, 15000, 13000, 13000, 17000, 18000, 10000, 13000, 25000, 9000000];
-				//var rotateArray = [110, 170, 240, 60, 10, 170, 60, 190, 190, 150, 120, 90, 0];
+				var timeArray = [8000, 11200, 19000, 15000, 15000, 13000, 13000, 17000, 18000, 10000, 13000, 25000, 10000, 0];
+				var rotateArray = [110, 170, 240, 60, 10, 170, 60, 190, 190, 150, 120, 90, 270, 0];
 				
 				
 				var currVideo = 0;
@@ -128,7 +128,7 @@ $(function() {
 			
 				var ran = Math.round(Math.random()*3);
 				
-				var srcArray = ['congo1.mp4', 'moosehead_1.mp4', 'pemaquid1.mp4', 'sebago1.mp4', 'moosehead2_1.mp4', 'rosier.mp4', 'sand.mp4', 'sebago2.mp4', 'cadillac.mp4', 'bakeman.mp4', 'kitten.mp4', 'house.mp4']
+				var srcArray = ['congo1.mp4', 'moosehead_1.mp4', 'pemaquid1.mp4', 'sebago1.mp4', 'moosehead2_1.mp4', 'rosier.mp4', 'sand.mp4', 'sebago2.mp4', 'cadillac.mp4', 'bakeman.mp4', 'kitten.mp4', 'house.mp4', 'via.mp4']
 				//var srcArray = ['congo.MP4', 'moosehead_1.MP4', 'moosehead2_1.MP4', 'pemaquid.MP4', 'kitten.mp4', 'house.mp4', 'rosier.mp4', 'sebago1.mp4', 'sand.mp4', 'cadillac.mp4', 'bakeman.mp4', 'kitten.mp4', 'sebago2.mp4'];
 				var vidsrc = 'assets/textures/' + srcArray[currVideo];
 			
